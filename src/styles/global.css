@@ -1,0 +1,367 @@
+@import "./tokens.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  transition: background-color 0.35s ease, color 0.35s ease;
+  overflow-x: clip;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+/* Main Frame Grid Container */
+.page-shell {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.grid-frame {
+  width: calc(100% - 40px);
+  max-width: 1680px;
+  margin: 0 auto;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+
+@media (max-width: 1199px) {
+  .grid-frame {
+    width: calc(100% - 28px);
+  }
+}
+
+@media (max-width: 809px) {
+  .grid-frame {
+    width: calc(100% - 16px);
+  }
+}
+
+/* Corner 4-point Sparkle (✦) */
+.sparkle-corner {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  pointer-events: none;
+  z-index: 5;
+  color: var(--star-color);
+  transform: translate(-50%, -50%);
+}
+
+/* Typography helpers */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.h1-hero {
+  font-family: var(--font-display);
+  font-size: clamp(62px, 8.7vw, 125px);
+  font-weight: 600;
+  line-height: 0.94;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.h2-section {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6.95vw, 100px);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.h3-sub {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 2.5vw, 35px);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.h4-label {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* Pill Badges */
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 16px;
+  border-radius: 999px;
+  background-color: var(--pill-bg);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color 0.25s ease;
+}
+
+.pill-badge-display {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  padding: 6px 18px;
+}
+
+/* Glowing Status Dot Button */
+.glow-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 20px;
+  position: relative;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease,
+    background-color 0.25s ease, color 0.25s ease;
+  white-space: nowrap;
+}
+
+.glow-btn:hover {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.glow-btn:active {
+  transform: scale(0.98);
+}
+
+.glow-btn--dark {
+  background-color: var(--btn-dark-bg);
+  color: var(--btn-dark-text);
+  box-shadow: 0 10px 26px -4px var(--accent-glow), 0 4px 12px rgba(0, 0, 0, 0.16);
+}
+
+.glow-btn--dark:hover {
+  box-shadow: 0 14px 34px -2px var(--accent-glow), 0 6px 16px rgba(0, 0, 0, 0.22);
+}
+
+.glow-btn--accent {
+  background-color: var(--accent);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 15px 28px;
+  box-shadow: 0 14px 34px -2px var(--accent-glow);
+}
+
+.glow-btn--accent:hover {
+  background-color: var(--accent-bright);
+  box-shadow: 0 18px 42px 0 var(--accent-glow);
+}
+
+.glow-btn--full {
+  width: 100%;
+  padding: 15px 24px;
+  font-size: 14px;
+}
+
+.glow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-bright);
+  flex-shrink: 0;
+  animation: pulseDot 2.2s ease-in-out infinite;
+}
+
+.glow-btn--accent .glow-dot {
+  background-color: #ffffff;
+}
+
+@keyframes pulseDot {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.28);
+    opacity: 0.78;
+  }
+}
+
+/* Rolling Letter Link Animation */
+.rolling-link {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  line-height: 1.15;
+  height: 1.15em;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+}
+
+.rolling-char-col {
+  display: inline-flex;
+  flex-direction: column;
+  height: 1.15em;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rolling-link:hover .rolling-char-col,
+.group:hover .rolling-char-col {
+  transform: translateY(-100%);
+}
+
+.rolling-char {
+  display: block;
+  height: 1.15em;
+  line-height: 1.15em;
+}
+
+/* Circular Rotating Dotted Ring */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin-dotted {
+  animation: spinSlow 24s linear infinite;
+}
+
+/* Infinite Horizontal Marquee */
+@keyframes marqueeScroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll var(--marquee-duration, 24s) linear infinite;
+  will-change: transform;
+}
+
+.marquee-wrap:hover .marquee-track--pausable {
+  animation-play-state: paused;
+}
+
+/* Floating Speech Bubble */
+.speech-bubble {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--surface);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.15;
+  padding: 12px 22px;
+  border-radius: 22px;
+  position: relative;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.speech-bubble--tail-left::after {
+  content: "";
+  position: absolute;
+  left: -6px;
+  bottom: 10px;
+  width: 14px;
+  height: 14px;
+  background-color: var(--surface);
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+}
+
+.speech-bubble--tail-right::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  bottom: 10px;
+  width: 14px;
+  height: 14px;
+  background-color: var(--surface);
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+}
+
+/* FAQ Chat Answer Bubble */
+.faq-answer-bubble {
+  position: relative;
+  background-color: var(--surface);
+  color: var(--text);
+  padding: 18px 24px;
+  border-radius: 20px;
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 520px;
+}
+
+.faq-answer-bubble::after {
+  content: "";
+  position: absolute;
+  right: -7px;
+  bottom: 8px;
+  width: 16px;
+  height: 16px;
+  background-color: var(--surface);
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+}
+
+/* Video blend/transparency handling on light & dark backgrounds */
+.dean-video {
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: normal;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+/* Transparent-look clean white-bg MP4s on Light mode, subtle rounded frame on Dark mode */
+[data-theme="dark"] .dean-video-card {
+  background-color: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+}
